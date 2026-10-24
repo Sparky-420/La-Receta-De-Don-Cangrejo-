@@ -1,0 +1,19 @@
+{
+  "name": "la-receta-de-don-cangrejo",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Calculadora y Control de Producción Profesional de Longaniza y Charcutería",
+  "scripts": {
+    "build": "node scripts/copy-web-assets.js",
+    "test": "node tests/app.test.js",
+    "cap:sync": "npm run build && cap sync android",
+    "android:debug": "npm run cap:sync && gradle -p android assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "7.4.3",
+    "@capacitor/core": "7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "7.4.3"
+  }
+}
