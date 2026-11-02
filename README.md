@@ -1,24 +1,57 @@
-# Revived Project Journey
+# La Receta de Don Cangrejo Pro MX
 
-/skill:migrate-external-project Source: code archive. Migrate the attached project into Lovable.
+Aplicación para el control de producción artesanal de longaniza: recetas, lotes, premix de curado, costeo y seguimiento del proceso de planta.
 
-This project was built with [Lovable](https://lovable.dev).
+## Tecnología
 
-## Build with Lovable
+- React 19 y TypeScript.
+- TanStack Start y TanStack Router.
+- Vite 8 y Tailwind CSS 4.
+- Bun para instalación y gestión de dependencias.
+- Vitest y Testing Library para pruebas.
+- Capacitor para preparar el paquete Android.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/f8d447fc-bcd9-4722-b38a-0c876654b53c).
+## Requisitos
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- Bun (versión actual).
+- Java 21 para la compilación Android.
+- Android SDK para compilar localmente el APK.
 
-## Development
+## Desarrollo local
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+```bash
+bun install
+bun run dev
 ```
+
+## Validaciones
+
+```bash
+bun run test
+bun run lint
+bun run build
+```
+
+## Compilar el APK Android
+
+El workflow `.github/workflows/build-apk.yml` prepara el proyecto Capacitor y ejecuta Gradle para generar el APK Debug.
+
+Se puede iniciar de dos maneras:
+
+1. Haciendo push a la rama `main`.
+2. Desde GitHub: **Actions → Compilar APK Android → Run workflow**.
+
+El artefacto generado se publica como `Don-Cangrejo-Pro-APK`.
+
+## Estructura del proyecto
+
+- `src/routes/`: rutas y estructura principal de la aplicación.
+- `src/components/ui/`: componentes de interfaz.
+- `src/legacy/`: implementación heredada de Don Cangrejo.
+- `src/test/`: pruebas automatizadas.
+- `scripts/prepare-android.ts`: preparación del proyecto Android.
+- `roadmap.md`: seguimiento de trabajo pendiente.
+
+## Repositorio
+
+El proyecto se mantiene en GitHub y puede desarrollarse localmente o desde Lovable. Los cambios de código deben revisarse antes de integrarse a `main`.
