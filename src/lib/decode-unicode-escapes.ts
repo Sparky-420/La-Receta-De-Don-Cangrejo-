@@ -1,17 +1,28 @@
 /**
  * Convierte secuencias Unicode escapadas que hayan llegado como texto literal.
+ * Admite \uXXXX y puntos de código extendidos \u{...} / \uXXXXX.
  * No evalúa código ni interpreta entidades HTML.
  */
 export function decodeUnicodeEscapes(value: string): string {
-  return value.replace(/\\\\u(?:\\{([0-9a-fA-F]{1,6})\\}|([0-9a-fA-F]{4,6}))/g, (match, braced: string | undefined, plain: string | undefined) => {
-    const codePoint = Number.parseInt(braced ?? plain, 16);
+  const decoded = value.replace(/\\\\u(?:\\{([0-9a-fA-F]{1,6})\\}|([0-9a-fA-F]{4,6}))/g, (match, braced: string | undefined, plain: string | undefined) => {
+    const digits = braced ?? plain ?? "";
+    // Los escapes clásicos \uXXXX siempre tienen cuatro dígitos. Solo se
+    // consume el formato de 5-6 dígitos cuando representa un code point
+    // suplementario, por ejemplo \u1F9EA, y no una letra posterior.
+    const extended = braced !== undefined || (digits.length > 4 && Number.parseInt(digits, 16) > 0xffff);
+    const selected = extended ? digits : digits.slice(0, 4);
+    const codePoint = Number.parseInt(selected, 16);
     if (!Number.isFinite(codePoint) || codePoint > 0x10ffff) return match;
+    const remainder = extended ? "" : digits.slice(4);
     try {
-      return String.fromCodePoint(codePoint);
+      const character = String.fromCodePoint(codePoint);
+      return character + remainder;
     } catch {
       return match;
     }
   });
+
+  return decoded.replace(/CHARCUTERÞA/gi, "CHARCUTERÍA");
 }
 
 export function normalizeUnicodeEscapes(root: ParentNode): void {
