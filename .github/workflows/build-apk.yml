@@ -21,15 +21,22 @@ jobs:
       - name: Configurar Java 21
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: zulu
           java-version: '21'
 
       - name: Configurar Android SDK
         uses: android-actions/setup-android@v3
         with:
-          packages: 'platform-tools'
+          packages: |
+            cmdline-tools;latest
+            platform-tools
+            platforms;android-35
+            build-tools;35.0.0
 
       - name: Preparar proyecto Capacitor
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
         run: |
           bun scripts/prepare-android.ts /tmp/android-build
           cd /tmp/android-build
@@ -38,12 +45,15 @@ jobs:
           bunx cap sync android
 
       - name: Compilar APK Debug
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
         run: |
           cd /tmp/android-build/android
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Publicar APK para descarga
+      - name: Publicar APK
         uses: actions/upload-artifact@v4
         with:
           name: Don-Cangrejo-Pro-APK
