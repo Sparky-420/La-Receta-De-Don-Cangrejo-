@@ -695,3 +695,143 @@ body {
     color: #000 !important;
   }
 }
+
+/* Ajustes de legibilidad y adaptación para móviles compactos */
+@media (max-width: 420px) {
+  .app-header {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .brand-wrapper {
+    min-width: 0;
+    gap: 8px;
+  }
+
+  .brand-info {
+    min-width: 0;
+  }
+
+  .brand-info h1 {
+    font-size: 0.98rem;
+  }
+
+  .brand-info p {
+    font-size: 0.62rem;
+    letter-spacing: 0.025em;
+    overflow-wrap: anywhere;
+  }
+
+  .header-badges {
+    flex: 0 0 auto;
+  }
+
+  .status-pill {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+  }
+
+  .container {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-header {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .card-title {
+    min-width: 0;
+    font-size: 0.98rem;
+  }
+
+  .weight-display-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .weight-number-box {
+    flex: 1 1 145px;
+    min-width: 0;
+    gap: 6px;
+  }
+
+  .weight-input-giant {
+    width: clamp(92px, 29vw, 145px);
+    max-width: 100%;
+    min-width: 0;
+    font-size: clamp(2.4rem, 11vw, 3.2rem);
+  }
+
+  .weight-unit {
+    font-size: 1.15rem;
+  }
+
+  .stepper-buttons {
+    flex: 0 0 auto;
+    gap: 6px;
+  }
+
+  .stepper-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .chips-row {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    padding: 2px 1px 8px;
+  }
+
+  .chip-btn {
+    flex: 0 0 auto;
+  }
+
+  .bottom-nav {
+    width: calc(100% - 20px);
+    padding: 0 5px;
+    gap: 0;
+  }
+
+  .nav-item {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 8px 3px;
+    font-size: 0.64rem;
+  }
+
+  .nav-item .nav-icon {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .weight-display-wrapper {
+    justify-content: flex-start;
+  }
+
+  .weight-number-box {
+    flex-basis: 100%;
+  }
+
+  .stepper-buttons {
+    margin-left: auto;
+  }
+
+  .recipe-tab-btn {
+    padding: 8px 5px;
+    font-size: 0.72rem;
+  }
+}
