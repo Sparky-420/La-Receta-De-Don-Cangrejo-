@@ -23,3 +23,16 @@ describe("Don Cangrejo formulas", () => {
     expect(calculatePremixBulk).toBeTypeOf("function");
   });
 });
+
+describe("Unicode display normalization", () => {
+  it("decodes BMP, emoji code points and surrogate-pair escapes", async () => {
+    const { decodeUnicodeEscapes } = await import("@/lib/decode-unicode-escapes");
+    expect(decodeUnicodeEscapes(String.raw`Fijaci\u00F3n \u2696\uFE0F \u1F9EA`)).toBe("Fijación ⚖️ 🧪");
+    expect(decodeUnicodeEscapes(String.raw`\uD83E\uDDEA`)).toBe("🧪");
+  });
+
+  it("leaves invalid or out-of-range escapes unchanged", async () => {
+    const { decodeUnicodeEscapes } = await import("@/lib/decode-unicode-escapes");
+    expect(decodeUnicodeEscapes(String.raw`\uZZZZ \u110000`)).toBe(String.raw`\uZZZZ \u110000`);
+  });
+});
